@@ -2,3 +2,6 @@
 /.gradle/
 /.idea/
 /build/
+
+#보안
+/application-oauth.propergies/
