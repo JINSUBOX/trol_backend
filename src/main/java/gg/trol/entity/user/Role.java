@@ -1,4 +1,4 @@
-package gg.trol.domain.user;
+package gg.trol.entity.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

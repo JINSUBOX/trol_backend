@@ -1,4 +1,4 @@
-package gg.trol.domain;
+package gg.trol.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
