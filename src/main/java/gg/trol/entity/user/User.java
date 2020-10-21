@@ -29,10 +29,4 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-    /*
-        프로필 사진은 제외
-
-        @Column
-        private String picture;
-    */
 }
