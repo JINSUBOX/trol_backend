@@ -2,11 +2,12 @@ package gg.trol.controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class HelloController {
     /*
     1. 화면에 helloworld가 출력됩니다.

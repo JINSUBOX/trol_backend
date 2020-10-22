@@ -1,16 +1,18 @@
 package gg.trol.config.security;
 
+import gg.trol.advice.exception.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,10 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // rest api이므로 csrf 보안이 필요없으므로 disable처리.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증할것이므로 세션필요없으므로 생성안함.
                 .and()
-                .authorizeRequests() // 다음 리퀘스트에 대한 사용권한 체크
-                .antMatchers("/*/signin", "/*/signup").permitAll() // 가입 및 인증 주소는 누구나 접근가능
-                .antMatchers(HttpMethod.GET, "/exception/**", "helloworld/**").permitAll() // hellowworld로 시작하는 GET요청 리소스는 누구나 접근가능
-                .anyRequest().hasRole("USER") // 그외 나머지 요청은 모두 인증된 회원만 접근 가능
+                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
@@ -43,6 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override // ignore check swagger resource
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**",
-                "/swagger-ui.html", "/webjars/**", "/swagger/**");
+                "/swagger-ui.html", "/webjars/**", "/swagger/**", "/h2-console/**");
     }
 }

@@ -35,14 +35,15 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('com.h2database:h2')
 
-    //compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
     compile('org.springframework.session:spring-session-jdbc')
 
     compile("org.mariadb.jdbc:mariadb-java-client")
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    //testCompile("org.springframework.security:spring-security-test")
+    testCompile("org.springframework.security:spring-security-test")
 
+    // 타임리프
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
     // Swagger
@@ -53,6 +54,8 @@ dependencies {
     implementation 'net.rakugakibox.util:yaml-resource-bundle:1.1'
 
     // jwt
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+    // 시큐리티
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }

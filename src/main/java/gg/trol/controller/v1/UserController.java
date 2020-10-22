@@ -9,6 +9,7 @@ import gg.trol.model.response.SingleResult;
 import gg.trol.service.ResponseService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final ResponseService responseService; // 결과를 처리할 Service
 
+    @Secured("ROLE_USER")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
