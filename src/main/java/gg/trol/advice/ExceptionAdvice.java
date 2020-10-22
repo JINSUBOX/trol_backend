@@ -1,5 +1,7 @@
 package gg.trol.advice;
 
+import gg.trol.advice.exception.CAuthenticationEntryPointException;
+import gg.trol.advice.exception.CEmailSigninFailedException;
 import gg.trol.advice.exception.CUserNotFoundException;
 import gg.trol.model.response.CommonResult;
 import gg.trol.service.ResponseService;
@@ -35,11 +37,23 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.valueOf(getMessage("userNotFound.code")), getMessage("userNotFound.msg"));
     }
 
-    // code정보에 해당하는 메시지를 조회합니다.
+    @ExceptionHandler(CEmailSigninFailedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult emailSigninFailed(HttpServletRequest request, CEmailSigninFailedException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("emailSigninFailed.code")), getMessage("emailSigninFailed.msg"));
+    }
+
+    @ExceptionHandler(CAuthenticationEntryPointException.class)
+    public CommonResult authenticationEntryPointException(HttpServletRequest request, CAuthenticationEntryPointException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("entryPointException.code")), getMessage("entryPointException.msg"));
+    }
+
+    // code정보에 해당하는 메시지를 조회
     private String getMessage(String code) {
         return getMessage(code, null);
     }
-    // code정보, 추가 argument로 현재 locale에 맞는 메시지를 조회합니다.
+
+    // code정보, 추가 argument로 현재 locale에 맞는 메시지를 조회
     private String getMessage(String code, Object[] args) {
         return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
     }
