@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show_sql: true
+  jwt:
+    secret: wlstnWkd!@#
+  messages:
+    basename: i18n/exception
+    encoding: UTF-8
+  #  profiles:
+  #    include: oauth
+  session:
+    store-type: jdbc
+  thymeleaf:
+    cache: true
+    check-template-location: true
+    mode: HTML5
+    order: 0
+    prefix: classpath:templates/
+    suffix: .html
+  social:
+    kakao:
+      client_id: d40371283b16f07b2f05e21b09b6eb5c # 앱생성시 받은 REST API 키
+      redirect: /login/oauth/kakao
+      url:
+        login: https://kauth.kakao.com/oauth/authorize
+        token: https://kauth.kakao.com/oauth/token
+        profile: https://kapi.kakao.com/v2/user/me
+  url:
+    base: http://localhost:8080

@@ -29,11 +29,11 @@ public class User extends BaseTimeEntity implements UserDetails {
     private String uid;
     @Column(nullable = false, length = 100)
     private String name;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
-
+    @Column(length = 100)
+    private String provider;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());

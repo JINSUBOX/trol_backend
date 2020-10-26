@@ -1,8 +1,6 @@
 package gg.trol.advice;
 
-import gg.trol.advice.exception.CAuthenticationEntryPointException;
-import gg.trol.advice.exception.CEmailSigninFailedException;
-import gg.trol.advice.exception.CUserNotFoundException;
+import gg.trol.advice.exception.*;
 import gg.trol.model.response.CommonResult;
 import gg.trol.service.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +50,18 @@ public class ExceptionAdvice {
     @ExceptionHandler(AccessDeniedException.class)
     public CommonResult AccessDeniedException(HttpServletRequest request, AccessDeniedException e) {
         return responseService.getFailResult(Integer.valueOf(getMessage("accessDenied.code")), getMessage("accessDenied.msg"));
+    }
+
+    @ExceptionHandler(CCommunicationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CommonResult communicationException(HttpServletRequest request, CCommunicationException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("communicationError.code")), getMessage("communicationError.msg"));
+    }
+
+    @ExceptionHandler(CUserExistException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CommonResult communicationException(HttpServletRequest request, CUserExistException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("existingUser.code")), getMessage("existingUser.msg"));
     }
 
     // code정보에 해당하는 메시지를 조회
