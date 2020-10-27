@@ -44,8 +44,9 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.springframework.security:spring-security-test")
 
-    // 타임리프
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    // 템플릿 엔진
+    //compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 
     // Swagger
     implementation 'io.springfox:springfox-swagger2:2.6.1'
