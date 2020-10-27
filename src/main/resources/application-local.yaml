@@ -1,6 +1,19 @@
+logging:
+  level:
+#    root: warn
+    gg.trol: debug
+
+server:
+  ssl:
+    enabled: true
+    key-store: keystore.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: bns-ssl
+  port: 8443
+
 spring:
-  profiles:
-    active: local
+  profiles: local
   h2:
     console:
       enabled: true
@@ -27,4 +40,4 @@ spring:
         token: https://kauth.kakao.com/oauth/token
         profile: https://kapi.kakao.com/v2/user/me
   url:
-    base: http://localhost:8080
+    base: https://localhost:8443
