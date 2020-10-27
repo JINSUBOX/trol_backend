@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   h2:
     console:
@@ -20,13 +21,13 @@ spring:
   #    include: oauth
   session:
     store-type: jdbc
-  thymeleaf:
-    cache: true
-    check-template-location: true
-    mode: HTML5
-    order: 0
-    prefix: classpath:templates/
-    suffix: .html
+  #  thymeleaf:
+  #    cache: true
+  #    check-template-location: true
+  #    mode: HTML5
+  #    order: 0
+  #    prefix: classpath:templates/
+  #    suffix: .html
   social:
     kakao:
       client_id: d40371283b16f07b2f05e21b09b6eb5c # 앱생성시 받은 REST API 키

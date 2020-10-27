@@ -14,6 +14,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 @RequiredArgsConstructor
 @Service
 public class KakaoService {
@@ -41,7 +43,7 @@ public class KakaoService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
         try {
             // Request profile
-            ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.profile"), request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(Objects.requireNonNull(env.getProperty("spring.social.kakao.url.profile")), request, String.class);
             if (response.getStatusCode() == HttpStatus.OK)
                 return gson.fromJson(response.getBody(), KakaoProfile.class);
         } catch (Exception e) {
@@ -62,7 +64,7 @@ public class KakaoService {
         params.add("code", code);
         // Set http entity
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.token"), request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(Objects.requireNonNull(env.getProperty("spring.social.kakao.url.token")), request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             return gson.fromJson(response.getBody(), RetKakaoAuth.class);
         }
