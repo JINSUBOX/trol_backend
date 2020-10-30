@@ -28,39 +28,31 @@ repositories {
     mavenCentral()
     jcenter()
 }
-
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.projectlombok:lombok')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('com.h2database:h2')
-
+    // 시큐리티
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // oauth
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
-    compile('org.springframework.session:spring-session-jdbc')
-
-    compile("org.mariadb.jdbc:mariadb-java-client")
-
     // test
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.springframework.security:spring-security-test")
-
+    // lombok
+    compile('org.projectlombok:lombok')
+    // db
+    compile('com.h2database:h2')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile("org.mariadb.jdbc:mariadb-java-client")
     // 템플릿 엔진
     //compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
-
     // Swagger
     implementation 'io.springfox:springfox-swagger2:2.6.1'
     implementation 'io.springfox:springfox-swagger-ui:2.6.1'
-
     // exception 다국어 처리 yml 라이브러리
     implementation 'net.rakugakibox.util:yaml-resource-bundle:1.1'
-
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
-
-    // 시큐리티
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-
     // Gson
     implementation 'com.google.code.gson:gson'
 }

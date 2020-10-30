@@ -1,4 +1,4 @@
-package gg.trol.model.social;
+package gg.trol.model.user;
 
 import lombok.Getter;
 import lombok.Setter;
