@@ -29,15 +29,21 @@ spring:
   messages:
     basename: i18n/exception
     encoding: UTF-8
-  session:
-    store-type: jdbc
-  social:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 958180173202-sii4epowero1eouvvjrlrnt27sikub08k.apps.googleusercontent.com
+            client-secret: k0asdfag801WdcJF8k9ST_8SG9
+          facebook:
+            client-id: 11612612521462
+            client-secret: 6578235217c5c365a98c51b02d0308ac
+custom:
+  oauth2:
     kakao:
-      client_id: d40371283b16f07b2f05e21b09b6eb5c # 앱생성시 받은 REST API 키
-      redirect: /login/oauth/kakao
-      url:
-        login: https://kauth.kakao.com/oauth/authorize
-        token: https://kauth.kakao.com/oauth/token
-        profile: https://kapi.kakao.com/v2/user/me
-  url:
-    base: https://localhost:8443
+      client_id: d40371283b16f07b2f05e21b09b6eb5c
+      client_secret:
+    naver:
+      client-id: B5yvH3Zaweyawerawwe6repj4z0L
+      client-secret: sArXFasdfawef
