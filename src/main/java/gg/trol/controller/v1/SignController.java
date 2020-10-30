@@ -1,6 +1,5 @@
 package gg.trol.controller.v1;
 
-import gg.trol.advice.exception.CEmailSigninFailedException;
 import gg.trol.advice.exception.CUserExistException;
 import gg.trol.advice.exception.CUserNotFoundException;
 import gg.trol.config.security.JwtTokenProvider;
@@ -8,7 +7,7 @@ import gg.trol.entity.user.User;
 import gg.trol.entity.user.UserRepository;
 import gg.trol.model.response.CommonResult;
 import gg.trol.model.response.SingleResult;
-import gg.trol.model.social.KakaoProfile;
+import gg.trol.model.user.KakaoProfile;
 import gg.trol.service.ResponseService;
 import gg.trol.service.user.KakaoService;
 import io.swagger.annotations.Api;
