@@ -34,8 +34,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 958180173202-sii4epowero1eouvvjrlrnt27sikub08k.apps.googleusercontent.com
-            client-secret: k0asdfag801WdcJF8k9ST_8SG9
+            client-id: 409881225357-lk43517064hccjg7d7090ubll0jrs09i.apps.googleusercontent.com
+            client-secret: HmqANQ26F-whwOuNwuM7hRcK
           facebook:
             client-id: 11612612521462
             client-secret: 6578235217c5c365a98c51b02d0308ac
@@ -43,7 +43,7 @@ custom:
   oauth2:
     kakao:
       client_id: d40371283b16f07b2f05e21b09b6eb5c
-      client_secret:
+      client_secret: OlLl0CrG545MYUE56LvQqKJiLSqtsMD1
     naver:
-      client-id: B5yvH3Zaweyawerawwe6repj4z0L
-      client-secret: sArXFasdfawef
+      client-id: yw75gPiM8tyt5VeaIQCn
+      client-secret: 5d4a_MAmOz
