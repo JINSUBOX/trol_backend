@@ -47,73 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // jwt token 필터를 id/password 인증 필터 전에 넣어라.
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class) // jwt token 필터를 id/password 인증 필터 전에 넣어라.
+               ;
     }
 
     @Override // ignore check swagger resource
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**",
                 "/swagger-ui.html", "/webjars/**", "/swagger/**", "/h2-console/**");
-    }
-
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties,
-                                                                     @Value("${custom.oauth2.kakao.client-id}") String kakaoClientId,
-                                                                     @Value("${custom.oauth2.kakao.client-secret}") String kakaoClientSecret,
-                                                                     @Value("${custom.oauth2.naver.client-id}") String naverClientId,
-                                                                     @Value("${custom.oauth2.naver.client-secret}") String naverClientSecret) {
-        List<ClientRegistration> registrations = oAuth2ClientProperties
-                .getRegistration()
-                .keySet()
-                .stream()
-                .map(client -> getRegistration(oAuth2ClientProperties, client))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-        registrations
-                .add(CustomOAuth2Provider
-                        .KAKAO.getBuilder("kakao")
-                        .clientId(kakaoClientId)
-                        .clientSecret(kakaoClientSecret)
-                        .jwkSetUri("temp")
-                        .build());
-
-        registrations
-                .add(CustomOAuth2Provider
-                        .NAVER.getBuilder("naver")
-                        .clientId(naverClientId)
-                        .clientSecret(naverClientSecret)
-                        .jwkSetUri("temp")
-                        .build());
-
-        return new InMemoryClientRegistrationRepository(registrations);
-    }
-
-
-    private ClientRegistration getRegistration(OAuth2ClientProperties clientProperties, String client) {
-        if ("google".equals(client)) {
-            OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("google");
-
-            return CommonOAuth2Provider.GOOGLE
-                    .getBuilder(client)
-                    .clientId(registration.getClientId())
-                    .clientSecret(registration.getClientSecret())
-                    .scope("email", "profile")
-                    .build();
-        }
-        if ("facebook".equals(client)) {
-            OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("facebook");
-
-            return CommonOAuth2Provider.FACEBOOK
-                    .getBuilder(client)
-                    .clientId(registration.getClientId())
-                    .clientSecret(registration.getClientSecret())
-                    .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
-                    .scope("email")
-                    .build();
-        }
-
-        return null;
     }
 
 }
