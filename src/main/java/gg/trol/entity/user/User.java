@@ -26,17 +26,16 @@ public class User extends BaseTimeEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long msrl;
     @Column(nullable = false, unique = true, length = 30)
-    private String uid;
+    private String email;
     @Column(nullable = false, length = 100)
-    private String name;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
-    @Column(length = 100)
-    private String provider;
+    private String nickname;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return null;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.uid;
+        return this.email;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -72,5 +71,24 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Object update(String name, String email) {
+        return null;
+    }
+    public User(String nickname, String email, Role role) {
+        this.nickname = nickname;
+        this.email = email;
+        this.role = role;
+    }
+
+    public User update(String name) {
+        this.nickname = nickname;
+
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 }

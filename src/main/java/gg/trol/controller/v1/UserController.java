@@ -55,10 +55,10 @@ public class UserController {
     @PutMapping(value = "/user")
     public SingleResult<User> modify(
             @ApiParam(value = "회원번호", required = true) @RequestParam int msrl,
-            @ApiParam(value = "회원이름", required = true) @RequestParam String name) {
+            @ApiParam(value = "회원이름", required = true) @RequestParam String nickname) {
         User user = User.builder()
                 .msrl(msrl)
-                .name(name)
+                .nickname(nickname)
                 .build();
         return responseService.getSingleResult(userRepository.save(user));
     }
