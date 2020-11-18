@@ -24,40 +24,40 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/v1")
 public class SignController {
-
-    private final UserRepository userRepository;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final ResponseService responseService;
-    private final KakaoService kakaoService;
-
-    @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
-    @PostMapping(value = "/signin/{provider}")
-    public SingleResult<String> signinByProvider(
-            @ApiParam(value = "서비스 제공자 provider", required = true) @PathVariable String provider,
-            @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken) {
-
-        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-        User user = userRepository.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
-    }
-
-    @ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
-    @PostMapping(value = "/signup/{provider}")
-    public CommonResult signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true) @PathVariable String provider,
-                                       @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken,
-                                       @ApiParam(value = "이름", required = true) @RequestParam String name) {
-
-        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-        Optional<User> user = userRepository.findByUidAndProvider(String.valueOf(profile.getId()), provider);
-        if(user.isPresent())
-            throw new CUserExistException();
-
-        userRepository.save(User.builder()
-                .uid(String.valueOf(profile.getId()))
-                .provider(provider)
-                .name(name)
-                .roles(Collections.singletonList("ROLE_USER"))
-                .build());
-        return responseService.getSuccessResult();
-    }
+//
+//    private final UserRepository userRepository;
+//    private final JwtTokenProvider jwtTokenProvider;
+//    private final ResponseService responseService;
+//    private final KakaoService kakaoService;
+//
+//    @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
+//    @PostMapping(value = "/signin/{provider}")
+//    public SingleResult<String> signinByProvider(
+//            @ApiParam(value = "서비스 제공자 provider", required = true) @PathVariable String provider,
+//            @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken) {
+//
+//        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+//        User user = userRepository.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
+//        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+//    }
+//
+//    @ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
+//    @PostMapping(value = "/signup/{provider}")
+//    public CommonResult signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true) @PathVariable String provider,
+//                                       @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken,
+//                                       @ApiParam(value = "이름", required = true) @RequestParam String name) {
+//
+//        KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
+//        Optional<User> user = userRepository.findByUidAndProvider(String.valueOf(profile.getId()), provider);
+//        if(user.isPresent())
+//            throw new CUserExistException();
+//
+//        userRepository.save(User.builder()
+//                .uid(String.valueOf(profile.getId()))
+//                .provider(provider)
+//                .name(name)
+//                .roles(Collections.singletonList("ROLE_USER"))
+//                .build());
+//        return responseService.getSuccessResult();
+//    }
 }
