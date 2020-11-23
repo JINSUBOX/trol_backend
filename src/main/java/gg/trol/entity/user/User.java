@@ -13,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Builder // builder를 사용할수 있게 합니다.
 @Entity // jpa entity임을 알립니다.
@@ -26,7 +24,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long msrl;
     @Column(nullable = false, unique = true, length = 30)
-    private String email;
+    private String uid;
     @Column(nullable = false, length = 100)
     private String nickname;
     @Enumerated(EnumType.STRING)
@@ -35,7 +33,9 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+        auth.add(new SimpleGrantedAuthority(role.getKey()));
+        return auth;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.email;
+        return this.uid;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -76,13 +76,13 @@ public class User extends BaseTimeEntity implements UserDetails {
     public Object update(String name, String email) {
         return null;
     }
-    public User(String nickname, String email, Role role) {
+    public User(String nickname, String uid, Role role) {
         this.nickname = nickname;
-        this.email = email;
+        this.uid = uid;
         this.role = role;
     }
 
-    public User update(String name) {
+    public User update(String nickname) {
         this.nickname = nickname;
 
         return this;

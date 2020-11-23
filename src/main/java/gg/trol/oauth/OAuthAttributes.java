@@ -57,7 +57,7 @@ public class OAuthAttributes {
     public User toEntity() {
         return User.builder()
                 .nickname(name)
-                .email(email)
+                .uid(email)
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package gg.trol.config.security;
 
+import gg.trol.service.user.CustomOAuth2UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -28,6 +29,7 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
     private long tokenValidMilisecond = 1000L * 60 * 60; // 1시간만 토큰 유효
 
     private final UserDetailsService userDetailsService;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @PostConstruct
     protected void init() {
