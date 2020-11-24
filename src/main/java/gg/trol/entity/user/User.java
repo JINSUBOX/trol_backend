@@ -76,6 +76,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     public Object update(String name, String email) {
         return null;
     }
+
     public User(String nickname, String uid, Role role) {
         this.nickname = nickname;
         this.uid = uid;
